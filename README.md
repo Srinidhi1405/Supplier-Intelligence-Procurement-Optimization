@@ -1,4 +1,7 @@
-﻿# Global Sourcing & Supply Manager (GSSM) Decision Project
+﻿### 🚀 [View the Live Interactive Dashboard](https://srinidhi1405.github.io/Supplier-Intelligence-Procurement-Optimization/)
+
+Explore the interactive supplier sourcing strategies, total cost of ownership (TCO), annual savings, quality metrics, and sourcing risk analysis.
+# Global Sourcing & Supply Manager (GSSM) Decision Project
 ## Supplier Intelligence & Procurement Optimization Model
 
 ![GSSM](https://img.shields.io/badge/Role-TechCorp%20GSSM%20Intern-black?style=for-the-badge&logo=TechCorp)
