@@ -1,0 +1,25 @@
+scenario_id,scenario_name,supplier_id,supplier_name,country,annual_volume_needed,unit_quoted_price,unit_freight,unit_tariff,unit_scrap,unit_holding,scenario_unit_tco,total_spend_millions,capacity_utilization_pct,capacity_breached
+SCN-1,Baseline Operations,SUP-001,Apex Display Technologies,South Korea,12000000,44.5,0.9,0.0,0.01,0.84,46.4,556.8,117.6,True
+SCN-1,Baseline Operations,SUP-002,Lumina MicroOptics,Japan,12000000,43.8,0.97,0.0,0.02,0.9,45.84,550.08,142.9,True
+SCN-1,Baseline Operations,SUP-003,Vanguard Optoelectronics,Taiwan,12000000,41.2,0.9,0.0,0.05,0.9,43.21,518.52,105.3,True
+SCN-1,Baseline Operations,SUP-004,Kestrel Panel Dynamics,China,12000000,37.9,1.08,2.84,0.18,1.04,43.5,522.0,90.9,False
+SCN-1,Baseline Operations,SUP-005,Solaria Micro-Devices,Vietnam,12000000,39.8,0.91,0.0,0.07,0.91,41.9,502.8,153.8,True
+SCN-1,Baseline Operations,SUP-006,Zenith Semiconductor Display,Malaysia,12000000,42.1,1.06,0.0,0.06,1.02,44.4,532.8,200.0,True
+SCN-2,Peak Demand Ramp (+25%),SUP-001,Apex Display Technologies,South Korea,15000000,44.5,1.03,0.0,0.01,0.91,46.61,699.15,147.1,True
+SCN-2,Peak Demand Ramp (+25%),SUP-002,Lumina MicroOptics,Japan,15000000,43.8,1.12,0.0,0.02,0.97,46.06,690.9,178.6,True
+SCN-2,Peak Demand Ramp (+25%),SUP-003,Vanguard Optoelectronics,Taiwan,15000000,41.2,1.03,0.0,0.06,0.97,43.42,651.3,131.6,True
+SCN-2,Peak Demand Ramp (+25%),SUP-004,Kestrel Panel Dynamics,China,15000000,37.9,1.24,2.84,0.2,1.1,43.74,656.1,113.6,True
+SCN-2,Peak Demand Ramp (+25%),SUP-005,Solaria Micro-Devices,Vietnam,15000000,39.8,1.05,0.0,0.08,0.98,42.11,631.65,192.3,True
+SCN-2,Peak Demand Ramp (+25%),SUP-006,Zenith Semiconductor Display,Malaysia,15000000,42.1,1.22,0.0,0.07,1.09,44.63,669.45,250.0,True
+SCN-3,Logistics Disruption & Bottleneck,SUP-001,Apex Display Technologies,South Korea,12000000,44.5,2.04,0.0,0.01,1.13,47.83,573.96,117.6,True
+SCN-3,Logistics Disruption & Bottleneck,SUP-002,Lumina MicroOptics,Japan,12000000,43.8,2.26,0.0,0.02,1.19,47.42,569.04,142.9,True
+SCN-3,Logistics Disruption & Bottleneck,SUP-003,Vanguard Optoelectronics,Taiwan,12000000,41.2,2.14,0.0,0.05,1.17,44.72,536.64,105.3,True
+SCN-3,Logistics Disruption & Bottleneck,SUP-004,Kestrel Panel Dynamics,China,12000000,37.9,2.74,2.84,0.19,1.29,45.41,544.92,90.9,False
+SCN-3,Logistics Disruption & Bottleneck,SUP-005,Solaria Micro-Devices,Vietnam,12000000,39.8,2.23,0.0,0.07,1.17,43.49,521.88,153.8,True
+SCN-3,Logistics Disruption & Bottleneck,SUP-006,Zenith Semiconductor Display,Malaysia,12000000,42.1,2.51,0.0,0.06,1.29,46.12,553.44,200.0,True
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-001,Apex Display Technologies,South Korea,12000000,44.5,0.99,0.0,0.01,0.94,46.59,559.08,117.6,True
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-002,Lumina MicroOptics,Japan,12000000,43.8,1.07,0.0,0.02,1.0,46.04,552.48,142.9,True
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-003,Vanguard Optoelectronics,Taiwan,12000000,41.2,0.99,0.0,0.05,0.99,43.39,520.68,105.3,True
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-004,Kestrel Panel Dynamics,China,12000000,37.9,1.19,8.53,0.18,1.13,49.37,592.44,90.9,False
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-005,Solaria Micro-Devices,Vietnam,12000000,39.8,1.0,0.0,0.07,1.0,42.08,504.96,153.8,True
+SCN-4,Tariff Spike & Geopolitical Realignment,SUP-006,Zenith Semiconductor Display,Malaysia,12000000,42.1,1.17,0.0,0.06,1.11,44.6,535.2,200.0,True

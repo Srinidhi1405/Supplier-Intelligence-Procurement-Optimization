@@ -1,0 +1,799 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSSM | Supplier Intelligence & Sourcing Optimization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0c10;
+            --bg-surface: #16181f;
+            --bg-card: #1f222e;
+            --border-color: #2c3040;
+            --TechCorp-blue: #2997ff;
+            --TechCorp-blue-hover: #147ce5;
+            --TechCorp-green: #30d158;
+            --TechCorp-red: #ff453a;
+            --TechCorp-amber: #ffd60a;
+            --TechCorp-purple: #bf5af2;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --text-tertiary: #636366;
+            --font-family: -TechCorp-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 28px;
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(41, 151, 255, 0.12);
+            color: var(--TechCorp-blue);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            border: 1px solid rgba(41, 151, 255, 0.25);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .header-meta {
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .header-meta span {
+            display: block;
+            color: var(--TechCorp-green);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* KPI SUMMARY CARDS */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .kpi-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(41, 151, 255, 0.4);
+        }
+
+        .kpi-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-secondary);
+        }
+
+        .kpi-value {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 6px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .kpi-subtext {
+            font-size: 12px;
+            color: var(--TechCorp-green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-subtext.neutral { color: var(--text-secondary); }
+        .kpi-subtext.negative { color: var(--TechCorp-red); }
+
+        /* MAIN GRID */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .card-caption {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* TABLES */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(44, 48, 64, 0.6);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .pill-green { background: rgba(48, 209, 88, 0.15); color: var(--TechCorp-green); }
+        .pill-blue { background: rgba(41, 151, 255, 0.15); color: var(--TechCorp-blue); }
+        .pill-amber { background: rgba(255, 214, 10, 0.15); color: var(--TechCorp-amber); }
+        .pill-red { background: rgba(255, 69, 58, 0.15); color: var(--TechCorp-red); }
+
+        /* INTERACTIVE STRATEGY SELECTOR */
+        .strategy-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .strategy-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--TechCorp-blue);
+            color: #fff;
+            border-color: var(--TechCorp-blue);
+        }
+
+        .strategy-callout {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 18px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            align-items: center;
+        }
+
+        .callout-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .callout-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .stat-block .stat-num {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .stat-block .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* INSIGHT CALLOUT */
+        .insight-box {
+            background: rgba(41, 151, 255, 0.08);
+            border: 1px solid rgba(41, 151, 255, 0.25);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-top: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .insight-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .insight-text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--TechCorp-blue);
+            margin-bottom: 4px;
+        }
+
+        .insight-text p {
+            font-size: 13px;
+            color: #d1d1d6;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            padding: 24px 0 12px 0;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <header>
+        <div>
+            <div class="badge-tag">Operations & Procurement</div>
+            <h1>Global Sourcing & Supply Management (GSSM)</h1>
+            <p class="subtitle">Component: 6.3" LTPO OLED Display Sub-Assembly | Sourcing Allocation & Total Cost of Ownership Optimization</p>
+        </div>
+        <div class="header-meta">
+            <span>Operational Ready</span>
+            Target Volume: 12,000,000 Units / Year<br>
+            Evaluation Period: FY2025-FY2026
+        </div>
+    </header>
+
+    <!-- TOP KPI CARDS -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Recommended Primary Sourcing</div>
+            <div class="kpi-value" style="color: var(--TechCorp-blue);">70% / 30%</div>
+            <div class="kpi-subtext">Vanguard (Taiwan) + Apex (Korea)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Net Annual Cost Savings</div>
+            <div class="kpi-value" style="color: var(--TechCorp-green);">$23.38M</div>
+            <div class="kpi-subtext">vs. Single-Source Incumbent Baseline</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Blended Landed TCO</div>
+            <div class="kpi-value">$44.17</div>
+            <div class="kpi-subtext neutral">Quoted FOB: $42.19/unit</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Blended Quality Yield</div>
+            <div class="kpi-value" style="color: var(--TechCorp-purple);">99.89%</div>
+            <div class="kpi-subtext">1,097 DPPM (Within &lt;1,500 target)</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Sourcing Risk Index</div>
+            <div class="kpi-value" style="color: var(--TechCorp-green);">18.2 <span style="font-size: 14px; font-weight: normal; color: var(--text-secondary);">/ 100</span></div>
+            <div class="kpi-subtext">Lowest exposure across all models</div>
+        </div>
+    </div>
+
+    <!-- STRATEGIC ALLOCATION SELECTOR -->
+    <div class="strategy-container">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Executive Sourcing Strategy Evaluator</div>
+                <div class="card-caption">Compare allocation models: Naive Price-Only vs Single-Source Incumbent vs GSSM Recommended Dual-Source</div>
+            </div>
+        </div>
+
+        <div class="strategy-tabs">
+            <button class="tab-btn" onclick="selectStrategy(0)">Strategy A: Naive Lowest-Quote (100% Kestrel)</button>
+            <button class="tab-btn" onclick="selectStrategy(1)">Strategy B: Incumbent Sole-Source (100% Apex)</button>
+            <button class="tab-btn" onclick="selectStrategy(2)">Strategy C: 3-Way Equal (33/33/34)</button>
+            <button class="tab-btn active" onclick="selectStrategy(3)">Strategy D: Recommended Dual-Source (70/30)</button>
+            <button class="tab-btn" onclick="selectStrategy(4)">Strategy E: China+1 Hedge (65/35)</button>
+        </div>
+
+        <div class="strategy-callout" id="strategyCallout">
+            <div>
+                <div class="callout-title" id="stratName">Strategy D: GSSM Optimized Dual-Source (70% Vanguard / 30% Apex)</div>
+                <div class="callout-desc" id="stratDesc">Vanguard (Taiwan) captures scale cost efficiency while Apex (Korea) ensures launch yield and provides instant surge elasticity.</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-label">Total Spend</div>
+                <div class="stat-num" id="stratSpend">$537.04M</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-label">Net vs Incumbent</div>
+                <div class="stat-num" id="stratSavings" style="color: var(--TechCorp-green);">+$23.38M</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-label">Risk Index</div>
+                <div class="stat-num" id="stratRisk" style="color: var(--TechCorp-green);">18.2 / 100</div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <div class="insight-icon">💡</div>
+            <div class="insight-text">
+                <h4 id="insightTitle">The Lowest-Bidder Fallacy: Why Kestrel Fails Standards</h4>
+                <p id="insightBody">Kestrel Dynamics quotes $37.90 FOB, creating the optical illusion of $79M in savings. However, when factoring in Section 301 tariffs (+7.5%), high defect fallout (5,239 DPPM requiring $35 scrap cost), mandatory 100% incoming screening ($0.45/unit), and emergency air freight expediting due to 35-day lead times, true landed TCO escalates to $43.50. Crucially, Kestrel creates a critical 94.0 Risk Index with high probability of factory line stops during peak Q3 ramp.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS GRID -->
+    <div class="grid-2col">
+        <!-- CHART 1: Quoted Price vs Landed TCO -->
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Quoted FOB Price vs. Landed TCO ($ / Unit)</div>
+                    <div class="card-caption">Exposing hidden landed costs across suppliers</div>
+                </div>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="tcoChart"></canvas>
+            </div>
+        </div>
+
+        <!-- CHART 2: Sourcing Radar Comparison -->
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Multi-Criteria Scorecard Radar</div>
+                    <div class="card-caption">Cost, Quality, Delivery, Capacity, and Geopolitical Risk</div>
+                </div>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPPLIER SCORECARD TABLE -->
+    <div class="card" style="margin-bottom: 28px;">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Supplier Intelligence Performance Scorecard</div>
+                <div class="card-caption">Multi-criteria decision framework across 1,450 historical PO batches</div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Supplier</th>
+                        <th>Location</th>
+                        <th>Quoted FOB</th>
+                        <th>Landed TCO</th>
+                        <th>Hidden Penalty</th>
+                        <th>Defect DPPM</th>
+                        <th>OTIF %</th>
+                        <th>Annual Capacity</th>
+                        <th>Overall Score</th>
+                        <th>Recommendation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="pill pill-green">#1</span></td>
+                        <td><strong>Vanguard Optoelectronics</strong></td>
+                        <td>Taiwan</td>
+                        <td>$41.20</td>
+                        <td>$43.21</td>
+                        <td>+$2.01 (+4.9%)</td>
+                        <td>1,250</td>
+                        <td>94.2%</td>
+                        <td>11.4M</td>
+                        <td><strong>88.4 / 100</strong></td>
+                        <td><span class="pill pill-blue">Primary (70%)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="pill pill-green">#2</span></td>
+                        <td><strong>Apex Display Technologies</strong></td>
+                        <td>South Korea</td>
+                        <td>$44.50</td>
+                        <td>$46.41</td>
+                        <td>+$1.91 (+4.3%)</td>
+                        <td>420</td>
+                        <td>97.5%</td>
+                        <td>10.2M</td>
+                        <td><strong>86.2 / 100</strong></td>
+                        <td><span class="pill pill-green">Secondary (30%)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="pill pill-blue">#3</span></td>
+                        <td><strong>Lumina MicroOptics</strong></td>
+                        <td>Japan</td>
+                        <td>$43.80</td>
+                        <td>$45.84</td>
+                        <td>+$2.04 (+4.7%)</td>
+                        <td>580</td>
+                        <td>96.0%</td>
+                        <td>8.4M</td>
+                        <td><strong>81.5 / 100</strong></td>
+                        <td><span class="pill pill-blue">Qualified Reserve</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="pill pill-amber">#4</span></td>
+                        <td><strong>Solaria Micro-Devices</strong></td>
+                        <td>Vietnam</td>
+                        <td>$39.80</td>
+                        <td>$41.90</td>
+                        <td>+$2.10 (+5.3%)</td>
+                        <td>2,100</td>
+                        <td>91.0%</td>
+                        <td>7.8M</td>
+                        <td><strong>76.3 / 100</strong></td>
+                        <td><span class="pill pill-amber">Strategic China+1 Ramp</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="pill pill-amber">#5</span></td>
+                        <td><strong>Zenith Semiconductor</strong></td>
+                        <td>Malaysia</td>
+                        <td>$42.10</td>
+                        <td>$44.39</td>
+                        <td>+$2.29 (+5.4%)</td>
+                        <td>1,600</td>
+                        <td>89.5%</td>
+                        <td>6.0M</td>
+                        <td><strong>69.8 / 100</strong></td>
+                        <td><span class="pill pill-amber">Niche Capacity Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="pill pill-red">#6</span></td>
+                        <td><strong>Kestrel Panel Dynamics</strong></td>
+                        <td>China</td>
+                        <td>$37.90</td>
+                        <td>$43.50</td>
+                        <td>+$5.60 (+14.8%)</td>
+                        <td>4,800</td>
+                        <td>83.5%</td>
+                        <td>13.2M</td>
+                        <td><strong>54.1 / 100</strong></td>
+                        <td><span class="pill pill-red">Reject / High Risk</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- STRESS-TEST SCENARIOS -->
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-title">Scenario Stress-Testing: Enterprise Spend & Capacity Resilience</div>
+                <div class="card-caption">Simulating shock impacts: Launch demand spike, freight spikes, tariff escalations</div>
+            </div>
+        </div>
+        <div style="height: 320px;">
+            <canvas id="scenarioChart"></canvas>
+        </div>
+    </div>
+
+    <footer>
+        Global Sourcing & Supply Management (GSSM) Decision Support Model | Built for Consumer Electronics Sourcing Analysis
+    </footer>
+</div>
+
+<script>
+    // Strategy Data Object
+    const strategies = [
+        {
+            name: "Strategy A: Naive Lowest-Quote (100% Kestrel)",
+            desc: "Awarding 100% volume to the lowest quoted FOB bidder ($37.90). High exposure to quality yield crashes and Section 301 tariffs.",
+            spend: "$525.50M",
+            savings: "+$34.92M",
+            savingsColor: "var(--TechCorp-green)",
+            risk: "94.0 / 100",
+            riskColor: "var(--TechCorp-red)",
+            insightTitle: "High Risk of Factory Line Stoppage",
+            insightBody: "While Kestrel shows headline savings on paper, its 5,239 DPPM and 35-day lead times create fatal assembly line risks during the company's peak Q3 ramp. Buffer inventory and emergency air expedites erode the paper margin."
+        },
+        {
+            name: "Strategy B: Incumbent Sole-Source (100% Apex Korea)",
+            desc: "Awarding 100% volume to the safest, highest-quality incumbent ($44.50). Zero operational disruption, but highest total procurement cost.",
+            spend: "$560.42M",
+            savings: "$0.00M",
+            savingsColor: "var(--text-secondary)",
+            risk: "32.6 / 100",
+            riskColor: "var(--TechCorp-amber)",
+            insightTitle: "Incumbent Margin Inefficiency & Single-Fab Exposure",
+            insightBody: "Sole-sourcing with Apex guarantees world-class quality (420 DPPM), but sacrifices $23.38M in cost optimization and leaves vulnerable to single-country geological/power shocks at the Paju fab."
+        },
+        {
+            name: "Strategy C: 3-Way Equal Allocation (33% Apex / 33% Lumina / 34% Vanguard)",
+            desc: "Diversifying equally across top 3 mature Asian suppliers. Low disruption risk, but excessive tooling NRE qualification overhead.",
+            spend: "$552.11M",
+            savings: "+$8.31M",
+            savingsColor: "var(--TechCorp-green)",
+            risk: "14.6 / 100",
+            riskColor: "var(--TechCorp-green)",
+            insightTitle: "Fragmented Volume & High Tooling NRE",
+            insightBody: "Splitting volume three ways dilutes volume tier discounts and requires $10.5M in tooling NRE qualifications. Recommended Dual-Sourcing achieves double the savings without supplier fragmentation."
+        },
+        {
+            name: "Strategy D: GSSM Optimized Dual-Source (70% Vanguard / 30% Apex)",
+            desc: "Strategic split: Vanguard (Taiwan) captures scale cost efficiency while Apex (Korea) ensures launch yield and provides instant surge elasticity.",
+            spend: "$537.04M",
+            savings: "+$23.38M",
+            savingsColor: "var(--TechCorp-green)",
+            risk: "18.2 / 100",
+            riskColor: "var(--TechCorp-green)",
+            insightTitle: "Optimal Frontier: Maximum Cost Savings at Minimal Risk",
+            insightBody: "Strategy D strikes the ideal operational balance: Vanguard takes 8.4M units at $43.21 TCO, while Apex handles 3.6M units at 420 DPPM. Total net enterprise savings are $23.38M with guaranteed zero-line-down dual redundancy."
+        },
+        {
+            name: "Strategy E: China+1 Regional Hedge (65% Vanguard / 35% Solaria Vietnam)",
+            desc: "Geopolitical tariff shield: Taiwan primary paired with Vietnam emerging manufacturing hub. 0% tariff footprint.",
+            spend: "$520.02M",
+            savings: "+$40.40M",
+            savingsColor: "var(--TechCorp-green)",
+            risk: "26.6 / 100",
+            riskColor: "var(--TechCorp-blue)",
+            insightTitle: "Long-Term Strategic Roadmap (FY2027 Ramp)",
+            insightBody: "Solaria Vietnam offers tremendous potential ($41.90 TCO, 0% tariff). However, its 2,100 DPPM requires engineering yield maturation before awarding >20% volume. Recommended as a roadmap target."
+        }
+    ];
+
+    function selectStrategy(idx) {
+        document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === idx);
+        });
+        const strat = strategies[idx];
+        document.getElementById('stratName').innerText = strat.name;
+        document.getElementById('stratDesc').innerText = strat.desc;
+        document.getElementById('stratSpend').innerText = strat.spend;
+        
+        const savingsEl = document.getElementById('stratSavings');
+        savingsEl.innerText = strat.savings;
+        savingsEl.style.color = strat.savingsColor;
+        
+        const riskEl = document.getElementById('stratRisk');
+        riskEl.innerText = strat.risk;
+        riskEl.style.color = strat.riskColor;
+        
+        document.getElementById('insightTitle').innerText = strat.insightTitle;
+        document.getElementById('insightBody').innerText = strat.insightBody;
+    }
+
+    // Chart.js Theme Configuration
+    Chart.defaults.color = '#86868b';
+    Chart.defaults.borderColor = 'rgba(44, 48, 64, 0.6)';
+    Chart.defaults.font.family = '-TechCorp-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+
+    // 1. TCO Breakdown Bar Chart
+    const ctxTco = document.getElementById('tcoChart').getContext('2d');
+    new Chart(ctxTco, {
+        type: 'bar',
+        data: {
+            labels: ['Apex (KR)', 'Lumina (JP)', 'Vanguard (TW)', 'Kestrel (CN)', 'Solaria (VN)', 'Zenith (MY)'],
+            datasets: [
+                {
+                    label: 'Quoted FOB Unit Price',
+                    data: [44.50, 43.80, 41.20, 37.90, 39.80, 42.10],
+                    backgroundColor: 'rgba(41, 151, 255, 0.75)',
+                    borderRadius: 4
+                },
+                {
+                    label: 'Landed TCO (With Duties, Scrap & Holding)',
+                    data: [46.41, 45.84, 43.21, 43.50, 41.90, 44.39],
+                    backgroundColor: 'rgba(255, 69, 58, 0.85)',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    min: 35,
+                    max: 48,
+                    ticks: {
+                        callback: val => '$' + val
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        afterBody: (context) => {
+                            const quoted = context[0].raw;
+                            const tco = context[1] ? context[1].raw : context[0].raw;
+                            return `Hidden Cost Delta: +$${(tco - quoted).toFixed(2)}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // 2. Scorecard Radar Chart
+    const ctxRadar = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+            labels: ['TCO Cost', 'Quality / Yield', 'OTD & Agility', 'Capacity Scale', 'Geopolitical / ESG'],
+            datasets: [
+                {
+                    label: 'Vanguard (Rank 1 - Taiwan)',
+                    data: [82.5, 78.4, 91.2, 85.0, 88.0],
+                    borderColor: '#2997ff',
+                    backgroundColor: 'rgba(41, 151, 255, 0.2)',
+                    pointBackgroundColor: '#2997ff'
+                },
+                {
+                    label: 'Apex (Rank 2 - Korea)',
+                    data: [61.0, 98.2, 97.5, 75.0, 93.0],
+                    borderColor: '#30d158',
+                    backgroundColor: 'rgba(48, 209, 88, 0.2)',
+                    pointBackgroundColor: '#30d158'
+                },
+                {
+                    label: 'Kestrel (Rank 6 - China)',
+                    data: [80.1, 15.0, 68.0, 100.0, 42.0],
+                    borderColor: '#ff453a',
+                    backgroundColor: 'rgba(255, 69, 58, 0.2)',
+                    pointBackgroundColor: '#ff453a'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(44, 48, 64, 0.6)' },
+                    grid: { color: 'rgba(44, 48, 64, 0.6)' },
+                    pointLabels: { font: { size: 11 } },
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            }
+        }
+    });
+
+    // 3. Scenario Stress-Testing Chart
+    const ctxScn = document.getElementById('scenarioChart').getContext('2d');
+    new Chart(ctxScn, {
+        type: 'bar',
+        data: {
+            labels: ['Baseline (12M)', 'Demand Surge (+25%)', 'Logistics Bottleneck', 'Tariff Escalation (+15%)'],
+            datasets: [
+                {
+                    label: 'Strategy D: Rec. Dual-Source (Vanguard 70 / Apex 30)',
+                    data: [537.0, 678.5, 558.2, 539.1],
+                    backgroundColor: '#2997ff'
+                },
+                {
+                    label: 'Strategy B: Incumbent Single-Source (Apex 100)',
+                    data: [560.4, 712.0, 581.4, 560.4],
+                    backgroundColor: '#86868b'
+                },
+                {
+                    label: 'Strategy A: Naive Lowest-Bidder (Kestrel 100)',
+                    data: [525.5, 689.0, 612.8, 638.5],
+                    backgroundColor: '#ff453a'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    ticks: { callback: val => '$' + val + 'M' }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

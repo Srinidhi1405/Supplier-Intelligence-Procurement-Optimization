@@ -1,0 +1,5 @@
+scenario_id,scenario_name,description,volume_multiplier,freight_cost_multiplier,tariff_hike_pct,lead_time_expansion_days,defect_multiplier
+SCN-1,Baseline Operations,Standard steady-state demand (12.0M units/year) with historical lead times and standard freight mix.,1.0,1.0,0.0,0,1.0
+SCN-2,Peak Demand Ramp (+25%),Global demand surge post-keynote requiring +25% volume ramp. Stresses supplier capacity limits.,1.25,1.15,0.0,3,1.1
+SCN-3,Logistics Disruption & Bottleneck,Ocean port congestion and customs delays; forces 35% of shipments to emergency air expedites.,1.0,2.2,0.0,12,1.05
+SCN-4,Tariff Spike & Geopolitical Realignment,Escalation of Section 301 tariffs to 25% on specific origins; rewards regional diversification.,1.0,1.1,15.0,4,1.0

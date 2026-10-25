@@ -1,0 +1,7 @@
+supplier_id,supplier_name,country,city,quoted_unit_cost,standard_lead_time_days,target_dppm,historical_otd_pct,monthly_capacity_units,financial_stability_score,esg_sustainability_score,tariff_rate_pct,tier_level,primary_transport_mode,ocean_transit_days,standard_freight_per_unit,expedited_air_cost_per_unit
+SUP-001,Apex Display Technologies,South Korea,Paju,44.5,21,420,97.5,850000,96,92,0.0,1,Ocean,18,0.85,3.65
+SUP-002,Lumina MicroOptics,Japan,Osaka,43.8,24,580,96.0,700000,94,95,0.0,1,Ocean,20,0.9,3.8
+SUP-003,Vanguard Optoelectronics,Taiwan,Taichung,41.2,26,1250,94.2,950000,90,88,0.0,1,Ocean,16,0.8,3.4
+SUP-004,Kestrel Panel Dynamics,China,Shenzhen,37.9,35,4800,83.5,1100000,82,74,7.5,1,Ocean,22,0.75,3.2
+SUP-005,Solaria Micro-Devices,Vietnam,Bac Ninh,39.8,28,2100,91.0,650000,85,84,0.0,1,Ocean,19,0.82,3.5
+SUP-006,Zenith Semiconductor Display,Malaysia,Penang,42.1,30,1600,89.5,500000,88,86,0.0,1,Ocean,24,0.88,3.7
